@@ -1,0 +1,51 @@
+# Advanced Bangla TTS Demo Dataset (v2)
+# Designed to stress-test: Currency, Time, Ordinals, Code-mix, NER, and Prosody.
+
+# --- Category: E-Commerce & Finance ---
+৳৫০০.৭৫ দামের ৫kg আটা কিনলাম।
+এটার দাম $৫০.২৫, যা প্রায় ৫৩০০ টাকা।
+বিকাশ (bkash) দিয়ে payment করলে ১০% discount পাবেন।
+আপনার PIN হলো ১২৩৪, এটি কাউকে বলবেন না।
+
+# --- Category: News & Formal ---
+Dr. Rahman ১০:৩০ AM এ google এ meeting করবেন।
+গাড়িটি ১০km/h গতিতে ২১st Feb তারিখে ২১৩.৫km পাড়ি দিয়েছে।
+প্রফেসর আহমেদ ঢাকা থেকে ৫th Aug তারিখে সিলেটে যাবেন।
+কোম্পানিটি microsoft এর সাথে একটি বড় চুক্তি করেছে।
+
+# --- Category: Conversational & Prosody ---
+আপনি কি কালকে ৯:০০ PM এ আসতে পারবেন?
+ওয়াও! ৫টা apple এর দাম মাত্র ১০০ টাকা?
+আমাকে ১টা পেন দাও, আমি google এ এটার দাম দেখছি।
+সাবধান! গাড়িটি খুব দ্রুত (৮০ km/h) আসছে।
+
+# --- Category: Mega Numbers & Units ---
+তার অ্যাকাউন্টে ৫,৫০,২৫,০০০ টাকা আছে।
+এই বক্সের ওজন ১২.৫kg এবং উচ্চতা ২৫cm।
+পৃথিবী থেকে চাঁদের দূরত্ব প্রায় ৩,৮৪,৪০৩ km।
+তিনি ১০.৫ কোটি টাকা দিয়ে একটি বাড়ি কিনলেন।
+
+# --- Category: Global Currencies & Weights ---
+আমি ¥১০০০ এবং ₹৫০০ এক্সচেঞ্জ করলাম।
+এটার ওজন মাত্র ৫০mg, সাবধানে ধরুন।
+সেখানে ১০ metric ton চাল মজুদ আছে।
+প্রতি লিটার দুধের দাম ৮০.৫০ টাকা।
+
+# --- Category: Advanced Code-mix & Business ---
+ মিটিংটি zoom এ হবে, link টি mail করে দিয়েছি।
+এটার performance খুব ভালো, ssd লাগানো আছে।
+আপনার order টি ship করা হয়েছে, কালকে (Thursday) পাবেন।
+আমি flutter দিয়ে app বানাচ্ছি, এটি অনেক fast।
+
+# --- Category: Dates & Ordinals (Advanced) ---
+আমাদের স্কুলের ১০০th anniversary পালন করা হলো।
+সে ৩rd floor এ থাকে, ১০th room টা তার।
+আগামী ১২-০৮-২০২৫ তারিখে আমাদের reunion আছে।
+আজকের দিনটি (Saturday) খুব সুন্দর।
+
+# --- Category: NER & Locations ---
+Samsung কোম্পানিটি দক্ষিণ কোরিয়ার।
+তিনি UNESCO এর সাথে কাজ করেন।
+ঢাকা থেকে চট্টগ্রাম যেতে ৫ ঘণ্টা সময় লাগে।
+আমি iPhone ১৩ pro ব্যবহার করি।
+

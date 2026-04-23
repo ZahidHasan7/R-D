@@ -6,13 +6,26 @@ import uvicorn
 import os
 from pathlib import Path
 
+from contextlib import asynccontextmanager
+
 from .asr import transcribe
-from .tts import synthesize
+from .tts import synthesize, _init_vits
 
 class TextRequest(BaseModel):
     text: str
 
-app = FastAPI(title="Voice Agent API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Pre-load models on startup
+    print("Pre-loading TTS and ASR models...")
+    try:
+        _init_vits()
+        print("Models loaded and ready.")
+    except Exception as e:
+        print(f"Warning: Models failed to load on startup: {e}")
+    yield
+
+app = FastAPI(title="Voice Agent API", lifespan=lifespan)
 
 # mount static frontend
 static_dir = Path(__file__).parent / "static"

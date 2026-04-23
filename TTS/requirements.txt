@@ -1,0 +1,13 @@
+jiwer==4.0.0
+transformers==5.5.3
+torch==2.11.0+cpu
+gTTS==2.5.4
+sacremoses==0.1.1
+sentencepiece==0.2.1
+numpy==2.4.3
+regex==2026.4.4
+huggingface_hub==1.10.1
+six
+tqdm
+# Coqui TTS is optional for VITS support
+# TTS

@@ -1,78 +1,38 @@
-# OS and editor files
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-*.swp
-*.swo
+# Ignore everything by default (optional, but safer)
+# or just ignore all large folders
 
-# Python cache and build artifacts
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-dist/
-.eggs/
-*.egg-info/
-*.egg
-pip-wheel-metadata/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-.coverage.*
-htmlcov/
-.ipynb_checkpoints/
-
-# Virtual environments and local env files
-.venv/
-.venv*/
-**/.venv*/
+# Environment
+.venv*
 venv/
-**/venv/
 STT/venv/
-env/
-ENV/
-.env
-.env.*
+TTS/venv/
 
-# Logs and runtime dumps
-*.log
-logs/
-
-# Model checkpoints and large binary assets
-*.ckpt
-*.pt
-*.pth
-*.onnx
-*.h5
-*.pkl
-*.joblib
-
-# Dataset and experiment outputs
-results/
-STT/experiments/
+# Large folders (models and preprocessing)
 STT/models/
+STT/preprocessing/
+STT/data.zip
 TTS/results/
-TTS/logs/
+results/
 
-# Temporary files
-*.tmp
-*.temp
-*.bak
-*.orig
-# Ignore logs and large outputs
-TTS/logs/
-TTS/results/
-STT/Run/
-*.ckpt
-*.pt
-*.pth
-*.h5
+# Audio files
+*.m4a
 *.wav
-*.mp4
+*.mp3
+*.zip
+
+# Pycache
 __pycache__/
 *.pyc
+
+# Local system files
 .DS_Store
+.idea/
+.vscode/
+
+# Keep the agent and src code
+!agent/
+!TTS/src/
+!Dockerfile
+!requirements.txt
+!.gitignore
+!.dockerignore

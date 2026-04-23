@@ -1,47 +1,76 @@
 import os
-from io import BytesIO
-from typing import Optional
+import sys
+import torch
+import numpy as np
 import wave
-import struct
+from io import BytesIO
+
+# Global instances for lazy loading and performance
+_model = None
+_tokenizer = None
+_normalizer = None
+_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def _init_vits():
+    """Lazily initialize the VITS2 model and normalizer."""
+    global _model, _tokenizer, _normalizer
+    if _model is None:
+        # Add TTS root to sys.path to allow imports from src.*
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        tts_root = os.path.abspath(os.path.join(current_dir, '..', 'TTS'))
+        if tts_root not in sys.path:
+            sys.path.append(tts_root)
+        
+        try:
+            from transformers import VitsModel, AutoTokenizer
+            from src.normalizer import TextNormalizer
+            
+            print(f"Loading VITS2 model (facebook/mms-tts-ben) on {_device}...")
+            _tokenizer = AutoTokenizer.from_pretrained("facebook/mms-tts-ben")
+            _model = VitsModel.from_pretrained("facebook/mms-tts-ben").to(_device)
+            _normalizer = TextNormalizer()
+            print("TTS pipeline initialized successfully.")
+        except Exception as e:
+            print(f"Error initializing TTS pipeline: {e}")
+            raise RuntimeError(f"Could not load neural TTS: {e}")
 
 def synthesize(text: str) -> bytes:
-    """Mock TTS: return a simple sine-wave audio for demo.
-    In production, replace this with real VITS or your model inference.
     """
-    # Generate a simple 1-second sine wave at 22050 Hz for demo
-    sample_rate = 22050
-    duration = 1  # seconds
-    frequency = 440  # Hz (A note)
+    High-quality Bangla TTS synthesis using VITS2 and custom normalizer.
+    Returns WAV bytes.
+    """
+    if not text:
+        return b''
+        
+    _init_vits()
     
-    num_samples = sample_rate * duration
-    audio_data = []
-    for i in range(num_samples):
-        # Simple sine wave
-        sample = int(32767 * 0.3 * (2 ** 0.5 * (i / sample_rate - int(i / sample_rate)) - 0.5))
-        audio_data.append(sample)
+    # 1. Pipeline Front-End: Multi-stage Normalization
+    # Handles abbreviations, units, currency, etc.
+    norm_text = _normalizer.normalize(text)
     
-    # Pack as 16-bit PCM
-    audio_bytes = b''.join(struct.pack('<h', min(32767, max(-32768, s))) for s in audio_data)
+    # 2. Neural Generation
+    inputs = _tokenizer(norm_text, return_tensors="pt").to(_device)
+    with torch.no_grad():
+        output = _model(**inputs).waveform
     
-    # Wrap in WAV format
+    # 3. Audio Post-Processing
+    audio_data = output[0].cpu().numpy()
+    
+    # Normalize volume
+    max_val = np.max(np.abs(audio_data))
+    if max_val > 0:
+        audio_data = audio_data / max_val
+        
+    # Convert to 16-bit PCM
+    audio_data = (audio_data * 32767).astype(np.int16)
+    
+    # 4. WAV Packing
+    sample_rate = _model.config.sampling_rate
     bio = BytesIO()
     with wave.open(bio, 'wb') as wav:
         wav.setnchannels(1)  # mono
         wav.setsampwidth(2)  # 16-bit
         wav.setframerate(sample_rate)
-        wav.writeframes(audio_bytes)
+        wav.writeframes(audio_data.tobytes())
     
     return bio.getvalue()
-    
-    # Real implementation (commented out for now):
-    # try:
-    #     from TTS.scripts.infer_vits2 import synthesize as vits_synth
-    #     out = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
-    #     out.close()
-    #     vits_synth(text, out.name)
-    #     with open(out.name, "rb") as f:
-    #         data = f.read()
-    #     os.unlink(out.name)
-    #     return data
-    # except Exception as e:
-    #     raise RuntimeError(f"No usable TTS inference available: {e}")

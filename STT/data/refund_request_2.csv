@@ -1,0 +1,8 @@
+ 
+
+73,refund_request,customer,refund এর status কী? ১০ দিন হয়ে গেছে কিছু আসে নাই
+74,refund_request,agent,সরি স্যার এত দেরি হওয়া উচিত না — ticket number টা আছে আপনার কাছে?
+75,refund_request,customer,হ্যাঁ TKT৯৯১২৩ — এইটা দিয়ে track করেন
+76,refund_request,agent,দেখতেছি স্যার… actually bank processing এ একটু stuck আছে
+77,refund_request,customer,এইটা তো আমার problem না  — আমি কবে পাবো clearly বলেন
+78,refund_request,agent,আমি আজকেই finance team কে inform করতেছি ২৪ ঘণ্টার মধ্যে update দেবো

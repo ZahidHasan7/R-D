@@ -1,0 +1,94 @@
+This diagram illustrates the Bangla TTS (Text-to-Speech) High-Level Pipeline, which is divided into three primary functional blocks: Normalization, Contextual Refinement, and Audio Synthesis.
+
+Here is the step-by-step explanation of the workflow:
+
+Phase 1: Hybrid Normalization Engine
+This block handles the conversion of non-standard "raw" text (like "৫kg" or "Dr.") into full Bengali words.
+
+Unicode Normalization (NFC): The raw text is first standardized to the NFC (Normalization Form Canonical Composition) to ensure characters like Bengali hoshonto or kar are consistent.
+Decision Engine & Classifier: Each token is classified into categories:
+UNIT: Routed to the Unit Handler (e.g., 5kg → ৫ কেজি).
+ABBREV: Routed to the Abbreviation Handler (e.g., Dr. → ডাক্তার).
+MIXED: Routed to a Token Splitter if a word contains both digits and letters (e.g., 10GB), which then feeds back into the decision engine for individual processing.
+Rule-Based Expansion: General tokens (Numbers, Dates, Currency, and Time) are expanded using logic-based scripts (e.g., ১০ → দশ).
+NER (Named Entity Recognition) Handler: Processes brand names or specific entities that require unique mappings or should be preserved.
+Phase 2: Contextual Refinement & G2P
+This block focuses on the phonetic representation and handling complex "Banglish" or code-mixed text.
+
+ML Translator (BanglaT5): A decision is made (Use ML?). If the text contains English or complex code-mixed segments, the BanglaT5 machine learning model translates/normalizes it into natural Bengali.
+Hybrid G2P Engine: This converts the normalized Bengali text into a Phoneme Stream using a 4-layered fallback strategy:
+Layer 1 (Dictionary): Instant lookup for known words.
+Layer 2 (Rule-Based Mapping): Applies phonetic rules if the word isn't in the dictionary.
+Layer 3 (Neural G2P /byt5/): A neural model predicts pronunciation for rare or unknown words.
+Layer 4 (Phoneme Stream): The final output is a sequence of phonetic tokens.
+Phase 3: Audio Synthesis
+The final conversion from phonemes to a playable audio file.
+
+Prosody Formatter: Adjusts the rhythm and timing (e.g., adding pauses at commas or full stops) to make the speech sound natural.
+TTS Engine Selection:
+Google Cloud TTS (gTTS): Used as a fast cloud-based fallback.
+VITS2 Model: A high-fidelity, local neural model used for premium, natural-sounding Bengali voice generation.
+Audio Output: The result is rendered into the final audio file (typically .wav or .mp3).
+
+
+This diagram detailed the Step 1: Token Classification logic, which is the foundational sorting mechanism in the Hybrid Normalization Engine.
+
+Workflow Breakdown:
+Input Token: The process starts with a single segment of text (a word or number) chunked from the raw input.
+Regex Pattern matching: Each token is parsed through a decision diamond that uses Regular Expressions to determine its nature:
+MIXED (Digit + String): Identifying tokens that combine numbers and characters, such as 10GB or ২০১২-১৩.
+ABBREVIATION (JSON Keys match): The token is checked against a JSON dictionary of known shortcuts (e.g., Dr. or etc.).
+UNIT (Unit list match): Specific matches for technical units like kg, meter, or ৳.
+NORMAL (None of the above): If the token doesn't trigger any special rules, it is categorized as standard text that doesn't require complex expansion.
+This classification ensures that every piece of text is routed to the correct specialized handler in the next stage.
+
+
+
+This diagram covers Steps 2 and 3 of the pipeline, focusing on how different types of tokens are transformed into fully expanded Bengali text.
+
+Phase 2: Specialist Processing
+Once a token is classified, it moves into a dedicated handler for precise translation:
+
+UNIT Handler: Specifically designed for measurements. For example, it converts the shorthand 5kg into the natural Bengali speech form ৫ কেজি.
+ABBREVIATION Handler: Expands standard short-forms into their full spoken titles, such as Dr. becoming ডাক্তার.
+TokenSplitter (for MIXED tokens): For complex strings like 10GB, the splitter breaks them into 10 and GB. These are then sent back through the Decision Engine (Recursion) to be handled as a number and a unit separately.
+Phase 3: Semantic Expansion
+After the specialist handlers do their work, the text passes through a sequence of grammar-heavy normalization rules:
+
+Month/Date Rules: Converts numeric dates or calendar-specific strings into natural Bengali phrasing.
+Currency Rules: Translates symbols (like ৳) and amounts into spoken words (e.g., ৫০০ টাকা).
+Number Rules: The core engine for cardinal/ordinal number conversion (e.g., ৫০ → পঞ্চাশ).
+NER Handler: The "Named Entity Recognition" check ensures that specific proper nouns, brand names, or technical terms are mapped to their correct phonetic Bengali equivalents before synthesis.
+
+
+Explaning Step 4: Hybrid G2P Engine
+
+This diagram illustrates Step 4: The Hybrid G2P (Grapheme-to-Phoneme) Engine, which converts written Bengali text into its phonetic representation through a 4-layered fallback system.
+
+The 4-Layer Fallback Strategy:
+Layer 1: Dict Lookup (High Speed):
+The engine first checks a pre-compiled pronunciation dictionary. If the word matches, it returns the phonemes instantly. If not (a "Miss"), it proceeds to the next layer.
+Layer 2: Rule Mapping (Deterministic Logic):
+This layer applies linguistic rules for Bengali pronunciation:
+Consonant Map: Maps standard characters to their phonetic equivalents.
+Vowel/Matra Map: Processes vowels and their diacritic forms.
+Hasanta Suppression: Handles the removal of inherent vowels at the end of syllables or words, a common feature in Bengali.
+Layer 4: Neural Model (/byt5/):
+If the rules cannot confidently resolve the pronunciation (a "Miss"), the system uses a fine-tuned ByT5 neural model. This model "imagines" the pronunciation character by character, making it ideal for rare names, new loanwords, or creative spellings.
+Layer 4: Fallback Original:
+As a safety net, if the neural model fails, the system returns the original word to ensure the synthesis pipeline continues without crashing.
+This hybrid approach balances the speed of dictionaries, the reliability of rules, and the intelligence of AI.
+
+
+This diagram illustrates Step 5: Synthesis & Prosody, the final stage where phonetic data becomes human-like sound.
+
+Final Synthesis Flow:
+Phoneme Stream: This stage receives the cleaned phonetic tokens from the G2P engine.
+Prosody Formatter: This module adds "life" to the speech. It interprets punctuation (like full stops । or commas ,) and linguistic context to insert silence durations, pitch variations, and rhythm markers. This prevents the voice from sounding robotic.
+Engine Selection: A choice is made based on performance needs or configuration:
+Cloud (GTTS Backend): Standard Google Cloud TTS used for fast generation or as a reliable backup.
+Local (VITS2 Backend): The primary high-performance neural engine that runs on the local server, providing more natural, expressive, and high-fidelity Bengali voices.
+Waveform Generation: The chosen engine synthesizes the actual audio waves, resulting in a playable .wav or .mp3 file.
+
+This concludes the 5-step breakdown of the Bangla TTS Pipeline. Every stage, from raw text cleaning to neural audio synthesis, works in harmony to produce high-quality Bengali speech.
+

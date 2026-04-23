@@ -1,0 +1,6 @@
+85,payment_issue,customer, double charge হয়ে গেছে একই order এ দুইবার কেটেছে
+86,payment_issue,agent,এইটা শুনে সত্যিই sorry স্যার — কোন payment method ছিল?
+87,payment_issue,customer,bKash এ করছিলাম — দুইটাই deduct হইছে statement এ দেখতেছি
+88,payment_issue,agent,স্যার screenshot টা আমাদের chat এ দিতে পারবেন? verify করি
+89,payment_issue,customer,হ্যাঁ দিচ্ছি — extra টা কিন্তু অবশ্যই ফেরত দিতে হবে
+90,payment_issue,agent,অবশ্যই স্যার verified হলেই ৪৮ ঘণ্টার মধ্যে refund হয়ে যাবে

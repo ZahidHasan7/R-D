@@ -8,3 +8,5 @@ torch
 typing-extensions
 openai-whisper
 transformers
+sentencepiece
+protobuf

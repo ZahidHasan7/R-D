@@ -1,0 +1,46 @@
+--- Text Normalization System ---
+Input:      ৫
+Normalized: ৫
+------------------------------
+Input:      ১২৩
+Normalized: ১২৩
+------------------------------
+Input:      5kg চাল
+Normalized: পাঁচ কেজি চাল
+------------------------------
+Input:      ১০km রাস্তা
+Normalized: ১০ কিলোমিটার রাস্তা
+------------------------------
+Input:      12 Aug 2024
+Normalized: একদুই আগস্ট দুইশূন্যদুইচার
+------------------------------
+Input:      15 Jan 2023
+Normalized: একপাঁচ জানুয়ারি দুইশূন্যদুইতিন
+------------------------------
+Input:      Dr. Rahman
+Normalized: ডাক্তার Ra ঘণ্টা মিটারan
+------------------------------
+Input:      Mr. Karim
+Normalized: মিস্টার Kari মিটার
+------------------------------
+Input:      ৫kg rice from Dhaka
+Normalized: ৫ কেজি rice fro মিটার D ঘণ্টাaka
+------------------------------
+Input:      10km road near Sylhet
+Normalized: একশূন্য কিলোমিটার road near Syl ঘণ্টাet
+------------------------------
+Input:      ২০kg আলু
+Normalized: ২০ কেজি আলু
+------------------------------
+Input:      ৩টা apple
+Normalized: ৩টা apple
+------------------------------
+Input:      5kg মাছ ১০km দূরে
+Normalized: পাঁচ কেজি মাছ ১০ কিলোমিটার দূরে
+------------------------------
+Input:      Dr. Ahmed went to Dhaka on 12 Aug
+Normalized: ডাক্তার A ঘণ্টা মিটারed went to D ঘণ্টাaka on একদুই আগস্ট
+------------------------------
+Input:      ৫০km/h speed
+Normalized: ৫০ কিলোমিটার/ ঘণ্টা speed
+------------------------------
