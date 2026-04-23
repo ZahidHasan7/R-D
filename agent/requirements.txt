@@ -6,3 +6,4 @@ soundfile
 numpy
 torch
 typing-extensions
+openai-whisper
