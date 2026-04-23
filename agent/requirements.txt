@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydub
+soundfile
+numpy
+torch
+typing-extensions
