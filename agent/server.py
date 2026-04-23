@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse, Response, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 import os
 from pathlib import Path
@@ -8,6 +9,19 @@ from .asr import transcribe
 from .tts import synthesize
 
 app = FastAPI(title="Voice Agent API")
+
+# mount static frontend
+static_dir = Path(__file__).parent / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+
+@app.get("/")
+async def index():
+    index_file = static_dir / "index.html"
+    if index_file.exists():
+        return HTMLResponse(index_file.read_text(encoding='utf-8'))
+    return HTMLResponse("<h1>Voice Agent API</h1><p>No frontend available.</p>")
 
 
 @app.post("/asr")
@@ -33,6 +47,8 @@ async def tts_endpoint(payload: dict):
     try:
         wav = synthesize(text)
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
     return Response(content=wav, media_type="audio/wav")
 
