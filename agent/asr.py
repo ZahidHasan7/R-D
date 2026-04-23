@@ -74,12 +74,27 @@ def _looks_corrupted(text: str) -> bool:
     """Check if text appears to be corrupted (mostly repeated chars)."""
     if not text or len(text) < 5:
         return True
+    
+    # Count unique characters (excluding spaces)
+    non_space_chars = set(c for c in text if c != ' ')
+    
+    # If very long text but very few unique characters, it's corrupted
+    # (e.g., "সেনে সেনে সেনে..." = 164 chars but only 6 unique chars)
+    if len(text) > 50 and len(non_space_chars) < 10:
+        return True
+    
     # If more than 60% of characters are the same character, it's corrupted
     char_counts = {}
     for c in text:
-        char_counts[c] = char_counts.get(c, 0) + 1
-    max_count = max(char_counts.values()) if char_counts else 0
-    return max_count / len(text) > 0.6
+        if c != ' ':
+            char_counts[c] = char_counts.get(c, 0) + 1
+    
+    if char_counts:
+        max_count = max(char_counts.values())
+        if max_count / len(char_counts) > 0.6:  # Max char > 60% of unique chars
+            return True
+    
+    return False
 
 def get_demo_transcription(file_path: str) -> str:
     """
