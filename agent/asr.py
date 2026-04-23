@@ -3,11 +3,11 @@ import tempfile
 from typing import Optional
 
 def transcribe(file_path: str) -> str:
-    """Transcribe audio using OpenAI Whisper (tiny model - fast on CPU)."""
+    """Transcribe audio using OpenAI Whisper (base model - better accuracy)."""
     try:
         import whisper
-        # Use "tiny" model for speed on CPU (65MB vs 461MB for "small")
-        model = whisper.load_model("tiny")
+        # Use "base" model for better accuracy (140MB, ~10sec per minute on CPU)
+        model = whisper.load_model("base")
         res = model.transcribe(str(file_path), language="bn")
         return res.get("text", "")
     except Exception as e:
