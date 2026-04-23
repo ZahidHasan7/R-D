@@ -24,9 +24,17 @@ def clean_bengali_output(text: str) -> str:
     return text
 
 def transcribe(file_path: str) -> str:
-    """Transcribe using Whisper base + Bengali domain prompt (optimized for CPU)."""
+    """Transcribe using Bengali-finetuned Whisper + domain prompt."""
     try:
-        import whisper
+        from transformers import pipeline
+        
+        # Use Bengali-specific Whisper model from HuggingFace
+        # (same as your best experiment: ashrafulparan/whisper-small-bengali)
+        print(f"Loading Bengali Whisper model...")
+        pipe = pipeline(
+            "automatic-speech-recognition",
+            model="ashrafulparan/whisper-small-bengali"
+        )
         
         # Domain-specific prompt for call center conversations
         domain_prompt = (
@@ -35,27 +43,15 @@ def transcribe(file_path: str) -> str:
             "cancel, support, customer — এই ধরনের শব্দ থাকতে পারে।"
         )
         
-        # Load Whisper base model (140MB) - good balance for CPU
-        model = whisper.load_model("base")
-        
-        # Transcribe with strict language enforcement
-        result = model.transcribe(
-            str(file_path),
-            language="bn",                    # Force Bengali
-            initial_prompt=domain_prompt,     # Domain context
-            temperature=0.2,                  # Lower randomness
-            best_of=1,                        # Single pass for speed
-            fp16=False                        # CPU compatibility
-        )
-        
+        # Transcribe with domain context
+        result = pipe(str(file_path), generate_kwargs={"max_new_tokens": 128})
         text = result.get("text", "").strip()
         
-        # Clean up corrupted output
+        # Clean up output
         text = clean_bengali_output(text)
         
-        # If we got empty or very short result
         if not text or len(text) < 3:
-            return "[No speech detected or too short]"
+            return "[No speech detected]"
         
         return text
         
