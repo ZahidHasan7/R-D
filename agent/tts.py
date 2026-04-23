@@ -6,41 +6,29 @@ def synthesize(text: str) -> bytes:
     """Simple TTS wrapper that tries existing repo scripts.
     Returns WAV bytes or raises RuntimeError on failure.
     """
-    # Try tts_engine_v2 if it exposes a synthesize or infer function
-    try:
-        from TTS.src import tts_engine_v2 as engine
-        if hasattr(engine, "synthesize"):
-            wav = engine.synthesize(text)
-            # expect wav bytes or numpy array; try to convert
-            if isinstance(wav, bytes):
-                return wav
-            try:
-                import soundfile as sf
-                import numpy as np
-                bio = BytesIO()
-                sf.write(bio, np.asarray(wav), 22050, format="WAV")
-                return bio.getvalue()
-            except Exception:
-                pass
-    except Exception:
-        pass
-
-    # Try scripts/infer_vits2.py as a CLI invocation
+    # Prefer using the repository's infer_vits2.synthesize function
     try:
         repo_root = os.path.dirname(os.path.dirname(__file__))
-        script = os.path.join(repo_root, "TTS", "scripts", "infer_vits2.py")
-        if os.path.exists(script):
-            # call script producing a file and read it
-            import subprocess, tempfile
-            out = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
-            out.close()
-            cmd = ["python", script, "--text", text, "--out", out.name]
-            subprocess.check_call(cmd)
-            with open(out.name, "rb") as f:
-                data = f.read()
+        sys_path_added = False
+        if repo_root not in os.sys.path:
+            os.sys.path.insert(0, repo_root)
+            sys_path_added = True
+        from TTS.scripts.infer_vits2 import synthesize as vits_synth
+        import tempfile
+        out = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+        out.close()
+        vits_synth(text, out.name)
+        with open(out.name, "rb") as f:
+            data = f.read()
+        try:
             os.unlink(out.name)
-            return data
-    except Exception:
-        pass
-
-    raise RuntimeError("No usable TTS inference available in repository.")
+        except Exception:
+            pass
+        if sys_path_added:
+            try:
+                os.sys.path.remove(repo_root)
+            except Exception:
+                pass
+        return data
+    except Exception as e:
+        raise RuntimeError(f"No usable TTS inference available: {e}")
