@@ -24,17 +24,9 @@ def clean_bengali_output(text: str) -> str:
     return text
 
 def transcribe(file_path: str) -> str:
-    """Transcribe using Bengali-finetuned Whisper + domain prompt."""
+    """Transcribe using Whisper small + Bengali domain prompt (from your best experiments)."""
     try:
-        from transformers import pipeline
-        
-        # Use Bengali-specific Whisper model from HuggingFace
-        # (same as your best experiment: ashrafulparan/whisper-small-bengali)
-        print(f"Loading Bengali Whisper model...")
-        pipe = pipeline(
-            "automatic-speech-recognition",
-            model="ashrafulparan/whisper-small-bengali"
-        )
+        import whisper
         
         # Domain-specific prompt for call center conversations
         domain_prompt = (
@@ -43,8 +35,20 @@ def transcribe(file_path: str) -> str:
             "cancel, support, customer — এই ধরনের শব্দ থাকতে পারে।"
         )
         
-        # Transcribe with domain context
-        result = pipe(str(file_path), generate_kwargs={"max_new_tokens": 128})
+        # Use Whisper small (same as your experiments - 440MB)
+        # This is what your approach_2B_prompted.py used
+        model = whisper.load_model("small")
+        
+        # Transcribe with domain context (matching your best experiment)
+        result = model.transcribe(
+            str(file_path),
+            language="bn",                    # Force Bengali
+            initial_prompt=domain_prompt,     # Your domain prompt
+            temperature=0.2,                  # Lower randomness
+            best_of=1,                        # Single pass
+            fp16=False                        # CPU compatibility
+        )
+        
         text = result.get("text", "").strip()
         
         # Clean up output
