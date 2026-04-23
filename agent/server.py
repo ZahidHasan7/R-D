@@ -1,12 +1,16 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse, Response, HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 import uvicorn
 import os
 from pathlib import Path
 
 from .asr import transcribe
 from .tts import synthesize
+
+class TextRequest(BaseModel):
+    text: str
 
 app = FastAPI(title="Voice Agent API")
 
@@ -40,8 +44,8 @@ async def asr_endpoint(file: UploadFile = File(...)):
 
 
 @app.post("/tts")
-async def tts_endpoint(payload: dict):
-    text = payload.get("text")
+async def tts_endpoint(request: TextRequest):
+    text = request.text
     if not text:
         raise HTTPException(status_code=400, detail="Missing 'text' field")
     try:
