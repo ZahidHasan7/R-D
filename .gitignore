@@ -1,0 +1,78 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python cache and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+
+# Virtual environments and local env files
+.venv/
+.venv*/
+**/.venv*/
+venv/
+**/venv/
+STT/venv/
+env/
+ENV/
+.env
+.env.*
+
+# Logs and runtime dumps
+*.log
+logs/
+
+# Model checkpoints and large binary assets
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl
+*.joblib
+
+# Dataset and experiment outputs
+results/
+STT/experiments/
+STT/models/
+TTS/results/
+TTS/logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.orig
+# Ignore logs and large outputs
+TTS/logs/
+TTS/results/
+STT/Run/
+*.ckpt
+*.pt
+*.pth
+*.h5
+*.wav
+*.mp4
+__pycache__/
+*.pyc
+.DS_Store

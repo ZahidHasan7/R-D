@@ -1,0 +1,83 @@
+[
+  {
+    "id": "Delivery_delay",
+    "reference": "হ্যালো স্যার আমি কীভাবে help করতে পারি আপু আমার order টা কই ৫ দিন হয়ে গেছে কোনো update নাই সরি স্যার একটু order ID টা দেন আমি check করি ID হলো BD২০৪৫৬৭ এখন কই আছে বলেন জি স্যার দেখতেছি… actually courier এ একটু delay হইছে আচ্ছা এইটা কি সব সময়ের problem last time ও same হইছিল বুঝতে পারছি স্যার খুব frustrating আজকেই escalate করে দিতেছি please fast করেন ভাই seriously দরকার ছিল জি স্যার আজকের মধ্যে একটা update দেওয়ার চেষ্টা করবো okay ঠিক আছে wait করতেছি কিন্তু আর দেরি করলে cancel করবো",
+    "prediction": "অালোসারআমটি হাল করতে পারিসরে অ অডার আটিাতেনামেকরিচিারেি০লি কোরিয়ারে একটু টিলে রেে পুস্পাচের সারাতি কি এসের রেতিতেছস আকেম টটের া চেষ্টা কয়ারিল",
+    "wer": 0.9565,
+    "cer": 0.8111,
+    "exact_match": false,
+    "latency_ms": 18036.14
+  },
+  {
+    "id": "Delivery_delay_2",
+    "reference": "আমার parcel টার tracking update নাই aaa ৩ দিন ধরে এইটা normal না স্যার normally এতক্ষণ লাগার কথা না আমি এখনই check করতেছি please quick চেক করেন কারণ gift ছিল এইটা occasion এর জন্য অবশ্যই স্যার আমি urgent mark করে দিচ্ছি courier partner কে contact করতেছি thank you আশা করি কাল এর মধ্যে পাবো সর্বোচ্চ চেষ্টা করবো স্যার আপনাকে update দেবো",
+    "prediction": "আমারকর্সালটার ট্রাকিমাবতেনায া এেলেলর় া নামাল নাসার নর্মালি আতা খন লাকার কথানা আমি এখনই চে েছিপ্রিশ করটেক রেন কাঙ্গিটছিল এটাযকসারজনবস্ ষ্তায আমি আর্চের মার করে দিচ্ছি করিয়ার পার্নার ে করটে করতেযাটে হসা করে কালতামতা বব সর্বোচ্চ চেষ্টা করবসতা রাপনাকে আঁপেরে ব।",
+    "wer": 0.8852,
+    "cer": 0.5701,
+    "exact_match": false,
+    "latency_ms": 7243.93
+  },
+  {
+    "id": "Payment_Issue",
+    "reference": "payment হয়ে গেছে কিন্তু order confirm দেখাচ্ছে না সরি স্যার এইটা মাঝে মাঝে হয় transaction ID টা আছে হ্যাঁ আছে TXN৮৮৭৭৬৬ এইটা দিয়ে কী করবেন এইটা দিয়ে আমরা verify করতে পারবো payment টা received হইছে কিনা okay আর কতক্ষণ লাগবে actually আমি ঘণ্টাখানেক ধরে wait করতেছি বুঝতে পারছি স্যার ৩০ মিনিটের মধ্যে manually confirm করে দিবো ঠিক আছে কিন্তু যদি না হয় তাহলে refund চাই অবশ্যই স্যার সেটাও possible কোনো tension নেই আচ্ছা notification আসলে আমি দেখবো জি স্যার SMS আর email দুইটাতেই যাবে",
+    "prediction": "প্যমান্ গেকে া cনগuসস ৬   যাসি কবএটেদিয়ামে পেরিস  া কেযা ককবে  া  মিনিটেম ে ্াািসেট  পাই।",
+    "wer": 1.0,
+    "cer": 0.8742,
+    "exact_match": false,
+    "latency_ms": 12595.11
+  },
+  {
+    "id": "Payment_issue_2",
+    "reference": "double charge হয়ে গেছে একই order এ দুইবার কেটেছে এইটা শুনে সত্যিই sorry স্যার কোন payment method ছিল bKash এ করছিলাম দুইটাই deduct হইছে statement এ দেখতেছি স্যার screenshot টা আমাদের chat এ দিতে পারবেন verify করি হ্যাঁ দিচ্ছি extra টা কিন্তু অবশ্যই ফেরত দিতে হবে অবশ্যই স্যার verified হলেই ৪৮ ঘণ্টার মধ্যে refund হয়ে যাবে",
+    "prediction": "ববচাযকে সা একি অটাবে টরিপার কেরেছেএটা শুনে স তেরফার ফোন পমেন ম্যা ্ছিল িগারচা কছি াটিাররছে াোর ফিন০ া আমাদে চেতেতিতে পারবেন বেরিফাই করিাদেেস্টটারগেবও সরকতবে অবার েরফইটলে আ চেরি ফটার ম ফেিফান যেযাবে।",
+    "wer": 0.9643,
+    "cer": 0.6811,
+    "exact_match": false,
+    "latency_ms": 8612.84
+  },
+  {
+    "id": "Product_inquiry",
+    "reference": "এই product টার কি warranty আছে হ্যাঁ স্যার ১ বছরের official warranty আছে warranty claim করতে হলে কী করতে হবে actually জানি না process টা সমস্যা নাই স্যার আমাদের app এ গিয়ে warranty section এ claim দিতে পারবেন app এ আমার তো app নাই website এ হবে না হ্যাঁ website এও হবে স্যার account এ login করে My Orders এ যান হ্যাঁ ওহ okay বুঝছি আর delivery charge কত এই item এর জন্য আপনার area যদি Dhaka হয় তাহলে ৬০ টাকা outside হলে ১২০ আমি Mirpur এ আছি so ৬০ টাকাই তো জি স্যার exactly Dhaka city এর মধ্যে flat 60 টাকা okay order দিয়ে দিচ্ছি তাহলে অবশ্যই স্যার কোনো problem হলে আবার call দেন",
+    "prediction": "অপটারট ওয়া  ১ িাl য়ি সম ১  েি়ে wয  ৩ে পারবা যা wেবস়েবসাইট হবসার ১নযে লন রে   t যঅ গটর আপনার এডিয়ে যদে fাাহ ৭াাউ১ ১২০ অ া সিটিে মধ্যে০টি টাকাক অ ব lে।",
+    "wer": 0.9739,
+    "cer": 0.8345,
+    "exact_match": false,
+    "latency_ms": 15509.15
+  },
+  {
+    "id": "Product_inquiry_2",
+    "reference": "এই laptop bag টা কি ১৫ inch laptop fit করবে হ্যাঁ স্যার up to 15 6 inch পর্যন্ত fit করবে description এ আছে okay আর material টা কী waterproof কিনা জানতে চাইছিলাম water resistant স্যার fully waterproof না হালকা বৃষ্টিতে okay থাকবে hmm আচ্ছা কোনো discount আছে এখন এই মুহূর্তে ১০% off চলছে স্যার app থেকে order দিলে extra ৫% পাবেন তাহলে app থেকেই দিবো code লাগবে নাকি automatic automatic স্যার cart এ গেলেই apply হয়ে যাবে",
+    "prediction": "w য   x ৮য়াটেল r l়  এমুw ে১ ে েিc xl।",
+    "wer": 1.0,
+    "cer": 0.9378,
+    "exact_match": false,
+    "latency_ms": 12227.31
+  },
+  {
+    "id": "Refund_Request_2",
+    "reference": "refund এর status কী ১০ দিন হয়ে গেছে কিছু আসে নাই সরি স্যার এত দেরি হওয়া উচিত না ticket number টা আছে আপনার কাছে হ্যাঁ TKT৯৯১২৩ এইটা দিয়ে track করেন দেখতেছি স্যার… actually bank processing এ একটু stuck আছে এইটা তো আমার problem না আমি কবে পাবো clearly বলেন আমি আজকেই finance team কে inform করতেছি ২৪ ঘণ্টার মধ্যে update দেবো",
+    "prediction": "অরিসার এেরিফওি া িকনাাাাডেখেসে খলি ব্যাংকপ্লোসিসিংে ১ টাক আছে মআআজকি ানান্স ৩ি ার মে আ।",
+    "wer": 0.9836,
+    "cer": 0.84,
+    "exact_match": false,
+    "latency_ms": 10215.34
+  },
+  {
+    "id": "Wrong_Item",
+    "reference": "umm আপু আমি একটা phone case order করছিলাম কিন্তু আইছে earphone এইটা clearly আমাদের packing mistake স্যার sorry for the trouble এখন কী করবো return করতে হবে হ্যাঁ স্যার আমরা pickup arrange করবো আপনাকে কিছু করতে হবে না okay কিন্তু correct item টা কবে পাবো pickup এর পর ২ থেকে ৩ দিনের মধ্যে replacement পাঠিয়ে দেবে। আচ্ছা ঠিক আছে umm pickup কবে আসবে আগামীকাল সকাল ১০টা থেকে ১২টার মধ্যে স্যার available থাকবেন হ্যাঁ থাকবো ঠিক আছে wait করবো perfect স্যার আমি এখনই schedule করে দিচ্ছি",
+    "prediction": "পযমারো ফরা সটাকছিলাম গাযফইযারআ এটকলিয়ারলি আমাদের েকিকার সরিাগমকি করব িটার কর ার ম া   করোাথািিস করেকে কেতকাটারটটা কববপিকাপের পর ২েেকিে ম থিরিলস পাকিতে  টা ে আসবে গামিকাল সকাল০টা েকে ১২টা মসার াবেলেবলথার য়াে রবপা স ১মি ১নি শিটুল করদিচছ।",
+    "wer": 0.9647,
+    "cer": 0.6981,
+    "exact_match": false,
+    "latency_ms": 12273.66
+  },
+  {
+    "id": "Wrong_item_2",
+    "reference": "আচ্ছা wrong item পাঠাইছেন এইটা কি আপনাদের warehouse এর mistake হ্যাঁ স্যার এইটা আমাদের end থেকেই হইছে really sorry okay apology accept করলাম কিন্তু solution চাই fast absolutely স্যার আপনি কি exchange চান নাকি full refund exchange দেন same product correct color এ পাঠান noted স্যার আজকেই dispatch করার try করবো",
+    "prediction": "হ্যাসার এটা আমাদেরেরেlিরিা্যলার আে fুলরিফান্যানা কার া  করার রাই।",
+    "wer": 0.9804,
+    "cer": 0.8511,
+    "exact_match": false,
+    "latency_ms": 7392.97
+  }
+]

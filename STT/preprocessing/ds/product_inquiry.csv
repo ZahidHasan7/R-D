@@ -1,0 +1,12 @@
+51,product_inquiry,customer, এই product টার কি warranty আছে?
+52,product_inquiry,agent,হ্যাঁ স্যার ১ বছরের official warranty আছে
+53,product_inquiry,customer,warranty claim করতে হলে কী করতে হবে actually জানি না process টা
+54,product_inquiry,agent,সমস্যা নাই স্যার — আমাদের app এ গিয়ে warranty section এ claim দিতে পারবেন
+55,product_inquiry,customer,app এ? আমার তো app নাই — website এ হবে না?
+56,product_inquiry,agent,হ্যাঁ website এও হবে স্যার — account এ login করে My Orders এ যান
+57,product_inquiry,customer,হ্যাঁ ওহ okay বুঝছি — আর delivery charge কত এই item এর জন্য?
+58,product_inquiry,agent,আপনার area যদি Dhaka হয় তাহলে ৬০ টাকা outside হলে ১২০
+59,product_inquiry,customer,আমি Mirpur এ আছি — so ৬০ টাকাই তো?
+60,product_inquiry,agent,জি স্যার exactly — Dhaka city এর মধ্যে flat 60 টাকা
+61,product_inquiry,customer,okay  order দিয়ে দিচ্ছি তাহলে
+62,product_inquiry,agent,অবশ্যই স্যার কোনো problem হলে আবার call দেন

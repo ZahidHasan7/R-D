@@ -1,0 +1,102 @@
+id,scenario,speaker_role,utterance
+1,delivery_delay,agent,হ্যালো স্যার আমি কীভাবে help করতে পারি?
+2,delivery_delay,customer,আপু আমার order টা কই? ৫ দিন হয়ে গেছে কোনো update নাই
+3,delivery_delay,agent,সরি স্যার একটু order ID টা দেন আমি check করি
+4,delivery_delay,customer,ID হলো BD২০৪৫৬৭ — এখন কই আছে বলেন
+5,delivery_delay,agent,জি স্যার দেখতেছি… actually courier এ একটু delay হইছে
+6,delivery_delay,customer,আচ্ছা এইটা কি সব সময়ের problem? last time ও same হইছিল
+7,delivery_delay,agent,বুঝতে পারছি স্যার খুব frustrating — আজকেই escalate করে দিতেছি
+8,delivery_delay,customer,please fast করেন ভাই seriously দরকার ছিল
+9,delivery_delay,agent,জি স্যার আজকের মধ্যে একটা update দেওয়ার চেষ্টা করবো
+10,delivery_delay,customer,okay ঠিক আছে wait করতেছি কিন্তু আর দেরি করলে cancel করবো
+11,order_cancel,customer,আমার order টা can cancel করতে চাই actually change of mind হইছে
+12,order_cancel,agent,অবশ্যই স্যার order number টা একটু বলেন
+13,order_cancel,customer,BD৩৩১২০ — এইটা cancel possible তো?
+14,order_cancel,agent,দেখতেছি স্যার… হ্যাঁ এখনো shipped হয় নাই so cancel করা যাবে
+,,,
+15,order_cancel,customer,okay ভালো — return কতদিনে পাবো?
+16,order_cancel,agent,"অ্যাঁ... সরি স্যার, রিফান্ড বুঝাচ্ছেন হয়তো"
+17,order_cancel,customer,হ্যাঁ... রিফান্ড কতদিন পরে পাবো?
+16,order_cancel,agent,৫ থেকে ৭ working days এর মধ্যে আপনার account এ চলে যাবে
+17,order_cancel,customer,account মানে? আমি তো cash on delivery দিছিলাম
+18,order_cancel,agent,ওহ আচ্ছা স্যার তাহলে তো payment হয় নাই so কোনো refund দরকার নাই
+19,order_cancel,customer,ওহ হ্যাঁ তাই তো — okay তাহলে just cancel করেন
+20,order_cancel,agent,done স্যার cancel হয়ে গেছে confirmation SMS যাবে
+21,refund_request,customer,আমি refund চাই — item টা totally wrong ছিল
+22,refund_request,agent,সরি স্যার এইটা শুনে দুঃখিত — কী problem হইছে একটু বলেন?
+23,refund_request,customer,আমি red color order করছিলাম আইছে blue — এইটা কী?
+24,refund_request,agent,অবশ্যই স্যার এইটা আমাদের mistake — refund process করে দিচ্ছি
+25,refund_request,customer,কতদিন লাগবে actually আমার urgent দরকার ছিল
+26,refund_request,agent,৩ থেকে ৫ business days স্যার — bKash এ নেবেন নাকি card এ?
+27,refund_request,customer,bKash এ দেন  সেটাই easy
+28,refund_request,agent,জি স্যার number টা confirm করেন একটু
+29,refund_request,customer,০১৭— এইটাতেই দেন
+30,refund_request,agent,noted স্যার process হয়ে গেলে notification যাবে
+31,wrong_item,customer,umm আপু আমি একটা phone case order করছিলাম কিন্তু আইছে earphone
+32,wrong_item,agent,এইটা clearly আমাদের packing mistake স্যার — sorry for the trouble
+33,wrong_item,customer,এখন কী করবো? return করতে হবে?
+34,wrong_item,agent,হ্যাঁ স্যার আমরা pickup arrange করবো আপনাকে কিছু করতে হবে না
+35,wrong_item,customer,okay কিন্তু correct item টা কবে পাবো?
+36,wrong_item,agent,pickup এর পর ২ থেকে ৩ দিনের মধ্যে replacement পাঠিয়ে দেবে। 
+37,wrong_item,customer,আচ্ছা ঠিক আছে — umm pickup কবে আসবে?
+38,wrong_item,agent,আগামীকাল সকাল ১০টা থেকে ১২টার মধ্যে স্যার available থাকবেন?
+39,wrong_item,customer,হ্যাঁ থাকবো — ঠিক আছে wait করবো
+40,wrong_item,agent,perfect স্যার আমি এখনই schedule করে দিচ্ছি
+41,payment_issue,customer, payment হয়ে গেছে কিন্তু order confirm দেখাচ্ছে না
+42,payment_issue,agent,সরি স্যার এইটা মাঝে মাঝে হয় — transaction ID টা আছে?
+43,payment_issue,customer,হ্যাঁ আছে TXN৮৮৭৭৬৬ — এইটা দিয়ে কী করবেন?
+44,payment_issue,agent,এইটা দিয়ে আমরা verify করতে পারবো payment টা received হইছে কিনা
+45,payment_issue,customer,okay আর কতক্ষণ লাগবে actually আমি ঘণ্টাখানেক ধরে wait করতেছি
+46,payment_issue,agent,বুঝতে পারছি স্যার — ৩০ মিনিটের মধ্যে manually confirm করে দিবো
+47,payment_issue,customer,ঠিক আছে কিন্তু যদি না হয় তাহলে refund চাই
+48,payment_issue,agent,অবশ্যই স্যার সেটাও possible — কোনো tension নেই
+49,payment_issue,customer,আচ্ছা notification আসলে আমি দেখবো
+50,payment_issue,agent,জি স্যার SMS আর email দুইটাতেই যাবে
+51,product_inquiry,customer, এই product টার কি warranty আছে?
+52,product_inquiry,agent,হ্যাঁ স্যার ১ বছরের official warranty আছে
+53,product_inquiry,customer,warranty claim করতে হলে কী করতে হবে actually জানি না process টা
+54,product_inquiry,agent,সমস্যা নাই স্যার — আমাদের app এ গিয়ে warranty section এ claim দিতে পারবেন
+55,product_inquiry,customer,app এ? আমার তো app নাই — website এ হবে না?
+56,product_inquiry,agent,হ্যাঁ website এও হবে স্যার — account এ login করে My Orders এ যান
+57,product_inquiry,customer,হ্যাঁ ওহ okay বুঝছি — আর delivery charge কত এই item এর জন্য?
+58,product_inquiry,agent,আপনার area যদি Dhaka হয় তাহলে ৬০ টাকা outside হলে ১২০
+59,product_inquiry,customer,আমি Mirpur এ আছি — so ৬০ টাকাই তো?
+60,product_inquiry,agent,জি স্যার exactly — Dhaka city এর মধ্যে flat 60 টাকা
+61,product_inquiry,customer,okay  order দিয়ে দিচ্ছি তাহলে
+62,product_inquiry,agent,অবশ্যই স্যার কোনো problem হলে আবার call দেন
+63,delivery_delay,customer,আমার parcel টার  tracking update নাই aaa ৩ দিন ধরে — এইটা normal?
+64,delivery_delay,agent,না স্যার normally এতক্ষণ লাগার কথা না — আমি এখনই check করতেছি
+65,delivery_delay,customer,please quick চেক করেন কারণ gift ছিল এইটা occasion এর জন্য
+66,delivery_delay,agent,অবশ্যই স্যার আমি urgent mark করে দিচ্ছি — courier partner কে contact করতেছি
+67,delivery_delay,customer,thank you  আশা করি কাল এর মধ্যে পাবো
+68,delivery_delay,agent,সর্বোচ্চ চেষ্টা করবো স্যার আপনাকে update দেবো
+69,order_cancel,customer,umm আমি actually ভুলে duplicate order দিয়ে ফেলছি cancel করা যাবে?
+70,order_cancel,agent,হ্যাঁ স্যার কোনটা রাখতে চান বলেন — বাকিটা cancel করে দেবো
+71,order_cancel,customer,BD৫৫৪৩২ টা রাখেন বাকি BD৫৫৪৩৩ টা cancel করেন
+72,order_cancel,agent,done স্যার BD৫৫৪৩৩ cancel হয়ে গেছে
+73,refund_request,customer,refund এর status কী? ১০ দিন হয়ে গেছে কিছু আসে নাই
+74,refund_request,agent,সরি স্যার এত দেরি হওয়া উচিত না — ticket number টা আছে আপনার কাছে?
+75,refund_request,customer,হ্যাঁ TKT৯৯১২৩ — এইটা দিয়ে track করেন
+76,refund_request,agent,দেখতেছি স্যার… actually bank processing এ একটু stuck আছে
+77,refund_request,customer,এইটা তো আমার problem না  — আমি কবে পাবো clearly বলেন
+78,refund_request,agent,আমি আজকেই finance team কে inform করতেছি ২৪ ঘণ্টার মধ্যে update দেবো
+79,wrong_item,customer,আচ্ছা  wrong item পাঠাইছেন — এইটা কি আপনাদের warehouse এর mistake?
+80,wrong_item,agent,হ্যাঁ স্যার এইটা আমাদের end থেকেই হইছে — really sorry
+81,wrong_item,customer,okay apology accept করলাম কিন্তু solution চাই fast
+82,wrong_item,agent,absolutely স্যার আপনি কি exchange চান নাকি full refund?
+83,wrong_item,customer,exchange দেন — same product correct color এ পাঠান
+84,wrong_item,agent,noted স্যার আজকেই dispatch করার try করবো
+85,payment_issue,customer, double charge হয়ে গেছে একই order এ দুইবার কেটেছে
+86,payment_issue,agent,এইটা শুনে সত্যিই sorry স্যার — কোন payment method ছিল?
+87,payment_issue,customer,bKash এ করছিলাম — দুইটাই deduct হইছে statement এ দেখতেছি
+88,payment_issue,agent,স্যার screenshot টা আমাদের chat এ দিতে পারবেন? verify করি
+89,payment_issue,customer,হ্যাঁ দিচ্ছি — extra টা কিন্তু অবশ্যই ফেরত দিতে হবে
+90,payment_issue,agent,অবশ্যই স্যার verified হলেই ৪৮ ঘণ্টার মধ্যে refund হয়ে যাবে
+91,product_inquiry,customer,এই laptop bag টা কি ১৫ inch laptop fit করবে?
+92,product_inquiry,agent,হ্যাঁ স্যার up to 15.6 inch পর্যন্ত fit করবে description এ আছে
+93,product_inquiry,customer,okay আর material টা কী? waterproof কিনা জানতে চাইছিলাম
+94,product_inquiry,agent,water resistant স্যার fully waterproof না — হালকা বৃষ্টিতে okay থাকবে
+95,product_inquiry,customer,hmm আচ্ছা — কোনো discount আছে এখন?
+96,product_inquiry,agent,এই মুহূর্তে ১০% off চলছে স্যার — app থেকে order দিলে extra ৫% পাবেন
+97,product_inquiry,customer,তাহলে app থেকেই দিবো — code লাগবে নাকি automatic?
+98,product_inquiry,agent,automatic স্যার cart এ গেলেই apply হয়ে যাবে
