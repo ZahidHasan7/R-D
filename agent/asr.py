@@ -3,7 +3,7 @@ import tempfile
 from typing import Optional
 
 def transcribe(file_path: str) -> str:
-    """Transcribe using Whisper large-v3 + Bengali domain prompt (optimized for call center scenarios)."""
+    """Transcribe using Whisper base + Bengali domain prompt (optimized for CPU)."""
     try:
         import whisper
         
@@ -15,8 +15,8 @@ def transcribe(file_path: str) -> str:
             "cancel, support, customer — এই ধরনের শব্দ থাকতে পারে।"
         )
         
-        # Load large-v3 model (1.5GB, best accuracy for Bengali)
-        model = whisper.load_model("large-v3")
+        # Use base model (140MB) - good balance for CPU
+        model = whisper.load_model("base")
         
         # Transcribe with domain context
         result = model.transcribe(
