@@ -1,0 +1,38 @@
+# Bangla TTS Normalization Test Cases — Extended v2
+# Each line must have a corresponding line in ground_truth.txt
+
+# --- Original 14 cases ---
+5kg চাল
+12 Aug 2024
+Dr. Rahman
+৫kg rice from Dhaka
+Prof. রহমান আজ ৫টা ক্লাস নেবেন
+3.5kg apple 10cm box এ রাখা হয়েছে
+Mr. Karim bought 3ta apple
+Prof. Ahmed moved to 10km away
+ডাক্তার সাহেবের সিরিয়াল পেতে Dr. Rahman কে ফোন দিন।
+সে 500g চিনি এবং 200ml পানি কিনেছে
+গাড়িটি ৬০ km/h গতিতে চলছে।
+৫ কেজি চালের দাম কত?
+৩টা আম দাও।
+৫০ কিমি/ঘণ্টা বেগে ঝড় বইছে।
+
+# --- New: Currency ---
+৳100 দাম কত?
+$50 দিয়ে কিনুন
+আমার কাছে €20 আছে
+
+# --- New: Time ---
+10:30 AM এ অফিস শুরু
+21:45 এ ট্রেন ছাড়বে
+00:00 মানে মধ্যরাত
+
+# --- New: Ordinals & Dates ---
+21st February আমাদের ভাষা দিবস
+1st prize পেয়েছি
+5th Aug তারিখে যাব
+
+# --- New: Code-mix ---
+আজকে meeting আছে বস
+সে google এ কাজ করে
+bkash দিয়ে payment করুন

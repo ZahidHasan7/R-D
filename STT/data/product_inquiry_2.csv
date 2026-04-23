@@ -1,0 +1,8 @@
+91,product_inquiry,customer,এই laptop bag টা কি ১৫ inch laptop fit করবে?
+92,product_inquiry,agent,হ্যাঁ স্যার up to 15.6 inch পর্যন্ত fit করবে description এ আছে
+93,product_inquiry,customer,okay আর material টা কী? waterproof কিনা জানতে চাইছিলাম
+94,product_inquiry,agent,water resistant স্যার fully waterproof না — হালকা বৃষ্টিতে okay থাকবে
+95,product_inquiry,customer,hmm আচ্ছা — কোনো discount আছে এখন?
+96,product_inquiry,agent,এই মুহূর্তে ১০% off চলছে স্যার — app থেকে order দিলে extra ৫% পাবেন
+97,product_inquiry,customer,তাহলে app থেকেই দিবো — code লাগবে নাকি automatic?
+98,product_inquiry,agent,automatic স্যার cart এ গেলেই apply হয়ে যাবে

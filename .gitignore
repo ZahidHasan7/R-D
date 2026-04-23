@@ -1,0 +1,43 @@
+# Ignore everything by default (optional, but safer)
+# or just ignore all large folders
+
+# Environment
+.venv*
+venv/
+STT/venv/
+TTS/venv/
+
+# Large folders (models and preprocessing)
+STT/models/
+STT/preprocessing/
+STT/data.zip
+TTS/results/
+results/
+
+# Audio, Image and Video files
+*.m4a
+*.wav
+*.mp3
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.gif
+
+# Pycache
+__pycache__/
+*.pyc
+
+# Local system files
+.DS_Store
+.idea/
+.vscode/
+
+# Keep the agent and src code
+!agent/
+!TTS/src/
+!Dockerfile
+!requirements.txt
+!.gitignore
+!.dockerignore

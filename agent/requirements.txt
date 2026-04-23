@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydub
+soundfile
+numpy
+torch
+typing-extensions
+openai-whisper
+transformers
+sentencepiece
+protobuf
