@@ -2,7 +2,10 @@ import os
 from tts import synthesize
 
 print("Testing Local TTS Generation with Cross-Coded text...")
-test_text = "কি করতেসি ভাই। ভাল্লাগে না।."
+test_text = input("Enter the text you want to synthesize: ")
+
+if not test_text.strip():
+    test_text = "আমি আজকে meeting korbo because project er deadline tomorrow."
 
 print(f"Generating audio for text: '{test_text}'")
 audio_bytes = synthesize(test_text)

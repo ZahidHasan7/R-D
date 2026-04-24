@@ -19,7 +19,7 @@ def _init_vits():
             from src.normalizer import TextNormalizer
             
             print("Loading Text Normalizer pipeline...")
-            _normalizer = TextNormalizer(use_ml=True)
+            _normalizer = TextNormalizer(use_ml=False)
             print("Online gTTS pipeline initialized successfully.")
         except Exception as e:
             print(f"Error initializing TTS pipeline: {e}")
