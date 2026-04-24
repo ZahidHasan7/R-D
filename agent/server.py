@@ -67,7 +67,7 @@ async def tts_endpoint(request: TextRequest):
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
-    return Response(content=wav, media_type="audio/wav")
+    return Response(content=wav, media_type="audio/mpeg")
 
 
 @app.post("/agent")
@@ -84,7 +84,7 @@ async def agent_endpoint(file: UploadFile = File(...)):
     # simple agent logic
     reply = "I heard: " + text
     wav = synthesize(reply)
-    return Response(content=wav, media_type="audio/wav")
+    return Response(content=wav, media_type="audio/mpeg")
 
 
 if __name__ == "__main__":
