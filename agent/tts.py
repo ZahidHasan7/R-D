@@ -28,7 +28,7 @@ def _init_vits():
             print(f"Loading VITS2 model (facebook/mms-tts-ben) on {_device}...")
             _tokenizer = AutoTokenizer.from_pretrained("facebook/mms-tts-ben")
             _model = VitsModel.from_pretrained("facebook/mms-tts-ben").to(_device)
-            _normalizer = TextNormalizer()
+            _normalizer = TextNormalizer(use_ml=True)
             print("TTS pipeline initialized successfully.")
         except Exception as e:
             print(f"Error initializing TTS pipeline: {e}")

@@ -45,7 +45,7 @@ def process():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
         
-    normalizer = TextNormalizer(use_ml=False)
+    normalizer = TextNormalizer(use_ml=True)
     prosody = ProsodyFormatter()
     tts = TTSEngineV2(lang='bn', backend=TTSBackend.GTTS)
     
