@@ -38,7 +38,6 @@ def _init_vits():
             
             print("[+] VITS pipeline initialized successfully.")
         except Exception as e:
-            import sys
             import traceback
             print(f"[!] Error initializing TTS pipeline: {e}", file=sys.stderr)
             traceback.print_exc(file=sys.stderr)
