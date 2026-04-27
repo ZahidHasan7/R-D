@@ -26,11 +26,12 @@ graph TD
     end
 
     subgraph Context["Contextual Refinement"]
-        NER --> ML{Use ML?}
-        ML -- Yes --> T5[ML Translator /BanglaT5/]
-        T5 --> PostCleanup[Post-ML Cleanup]
-        ML -- No --> G2P
-        PostCleanup --> G2P
+        NER --> ML{Transliterate English?}
+        ML -- Yes --> T5[Phonetic Transliteration /Google API/]
+        T5 --> PostCleanup[Post-Transliteration Cleanup]
+        ML -- No --> PassThrough[Retain Raw English]
+        PostCleanup --> G2P[Grapheme-to-Phoneme]
+        PassThrough --> G2P
     end
 
     subgraph G2P["Hybrid G2P Engine"]
@@ -41,11 +42,11 @@ graph TD
     end
 
     subgraph TTS["Audio Synthesis"]
-        FinishG2P --> Prosody[Prosody Formatter]
-        Prosody --> Engine{TTS Engine}
-        Engine -- GTTS --> Cloud[Google Cloud TTS]
-        Engine -- VITS2 --> Neural[VITS2 Model]
-        Cloud --> Output[Audio Output]
+        G2P --> Prosody[Prosody Formatter]
+        Prosody --> Engine{TTS Backend}
+        Engine -- Active --> Cloud[Google Cloud TTS /gTTS/]
+        Engine -- Deprecated --> Neural[Local VITS2 Model]
+        Cloud --> Output[Audio Output /MP3 Bytes/]
         Neural --> Output
     end
 ```
@@ -110,8 +111,9 @@ Objective: Final formatting and wave generation.
 graph LR
     Phonemes[Phoneme Stream] --> Prosody[Prosody Formatter]
     Prosody --> Mode{Engine Selection}
-    Mode -- "Cloud" --> GTTS[GTTS Backend]
-    Mode -- "Local" --> VITS2[VITS2 Backend]
-    GTTS & VITS2 --> Wave[Waveform Generation]
+    Mode -- "Cloud (Active)" --> GTTS[GTTS Backend]
+    Mode -- "Local (Legacy)" --> VITS2[VITS2 Backend]
+    GTTS --> MP3[MP3 ByteArray]
+    VITS2 --> Wave[WAV Array]
 ```
 ````

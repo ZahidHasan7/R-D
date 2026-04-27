@@ -10,4 +10,5 @@ openai-whisper
 transformers
 sentencepiece
 protobuf
-gTTS
+scipy
+fasttext-wheel

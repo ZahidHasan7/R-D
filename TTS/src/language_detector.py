@@ -6,6 +6,7 @@ appropriately into the Bangla or English processing pipeline.
 """
 
 import re
+import os
 from dataclasses import dataclass, field
 from typing import Literal
 
@@ -53,43 +54,57 @@ class RoutingResult:
 
 class LanguageDetector:
     """
-    Token-level language detector for Bangla-English code-mixed text.
-
-    Usage:
-        detector = LanguageDetector()
-        result = detector.route("আজকে meeting আছে")
-        # result.bangla_tokens  → ['আজকে', 'আছে']
-        # result.english_tokens → ['meeting']
-        # result.is_mixed       → True
+    Token-level language detector for Bangla-English code-mixed text using fastText pipeline.
+    Falls back to Regex if the model cannot determine the domain.
     """
+    def __init__(self):
+        self.fasttext_model = None
+        try:
+            import fasttext
+            # Pulling from the unified STT model repository
+            model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'STT', 'models', 'lid.176.bin'))
+            if os.path.exists(model_path):
+                # Suppress deprecation warnings on model load
+                fasttext.FastText.eprint = lambda x: None
+                self.fasttext_model = fasttext.load_model(model_path)
+                print(f"[*] fastText LID Model Loaded successfully from {model_path}.")
+        except ImportError:
+            print("[!] fastText not installed. Fallback to strict Regex.")
+        except Exception as e:
+            print(f"[!] Warning: fastText initialization failed: {e}")
 
     def detect_token(self, token: str) -> Lang:
-        """
-        Detects the language of a single token.
-
-        Returns:
-            'bangla'  — token contains Bangla Unicode script
-            'english' — token contains only ASCII letters
-            'neutral' — digits, punctuation, or symbols
-            'mixed'   — token contains both Bangla and English characters
-        """
         clean = token.strip()
         if not clean:
             return 'neutral'
-
-        # Pure digit or punctuation
         if _DIGIT_RE.match(clean):
             return 'neutral'
-
+            
+        # 1. Structural Check
         has_bangla = bool(_BANGLA_RE.search(clean))
         has_english = bool(_ENGLISH_RE.search(clean))
-
+        
+        # Immediate shortcut for pure code-mixing
         if has_bangla and has_english:
             return 'mixed'
+            
+        # 2. Machine Learning Check
+        if self.fasttext_model:
+            # Predict out language mapping
+            predictions = self.fasttext_model.predict(clean, k=1)
+            label = predictions[0][0].replace('__label__', '')
+            
+            if label == 'bn':
+                return 'bangla'
+            elif label == 'en':
+                return 'english'
+                
+        # 3. Fallback Regex Heuristics
         if has_bangla:
             return 'bangla'
         if has_english:
             return 'english'
+            
         return 'neutral'
 
     def detect_tokens(self, text: str) -> list[TokenInfo]:

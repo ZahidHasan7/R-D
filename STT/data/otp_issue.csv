@@ -1,0 +1,5 @@
+111,otp_issue,agent,স্যার OTP পাচ্ছেন না?
+112,otp_issue,customer,না ১০ মিনিট হয়ে গেছে
+113,otp_issue,agent,resend option use করেন
+114,otp_issue,customer,৩ বার try করেছি already
+115,otp_issue,agent,ঠিক আছে alternative verification দিচ্ছি
