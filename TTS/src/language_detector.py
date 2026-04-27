@@ -62,7 +62,7 @@ class LanguageDetector:
         try:
             import fasttext
             # Pulling from the unified STT model repository
-            model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'STT', 'models', 'lid.176.bin'))
+            model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'STT', 'models', 'lid.176.bin'))
             if os.path.exists(model_path):
                 # Suppress deprecation warnings on model load
                 fasttext.FastText.eprint = lambda x: None

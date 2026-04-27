@@ -21,19 +21,27 @@ def _init_vits():
         if tts_root not in sys.path:
             sys.path.append(tts_root)
         
+        print(f"[*] TTS Root Path: {tts_root}")
+        
         try:
             from transformers import VitsModel, AutoTokenizer
             from src.normalizer import TextNormalizer
             
-            print(f"Loading VITS model (facebook/mms-tts-ben) on {_device}...")
+            print(f"[*] Loading Tokenizer (facebook/mms-tts-ben)...")
             _tokenizer = AutoTokenizer.from_pretrained("facebook/mms-tts-ben")
+            
+            print(f"[*] Loading VITS Model (facebook/mms-tts-ben) on {_device}...")
             _model = VitsModel.from_pretrained("facebook/mms-tts-ben").to(_device)
-            # CRITICAL: We MUST use Transliteration (True) because the VITS tokenizer
-            # natively drops English alphabets out of its vocab stream.
+            
+            print(f"[*] Initializing TextNormalizer...")
             _normalizer = TextNormalizer(use_ml=True)
-            print("VITS pipeline initialized successfully.")
+            
+            print("[+] VITS pipeline initialized successfully.")
         except Exception as e:
-            print(f"Error initializing TTS pipeline: {e}")
+            import sys
+            import traceback
+            print(f"[!] Error initializing TTS pipeline: {e}", file=sys.stderr)
+            traceback.print_exc(file=sys.stderr)
             raise RuntimeError(f"Could not load neural TTS: {e}")
 
 def synthesize(text: str) -> bytes:
