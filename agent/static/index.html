@@ -5,37 +5,274 @@
     
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Voice Agent UI</title>
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
+    <title>Bangla Voice Agent</title>
+    <!-- Ultra Aesthetic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <style>
+      :root {
+        --text-main: #ffffff;
+        --text-muted: rgba(255, 255, 255, 0.6);
+        --glass-bg: rgba(20, 20, 25, 0.4);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --glass-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        --accent-gradient: linear-gradient(135deg, #ff007a, #7a00ff);
+      }
+      
       body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
+        font-family: 'Outfit', sans-serif;
+        margin: 0;
+        min-height: 100vh;
+        background-color: #050505;
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+        position: relative;
       }
+      
+      /* Animated Mesh Gradient Background */
+      .bg-mesh {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+        background: #000;
+      }
+      .bg-mesh .blob {
+        position: absolute;
+        filter: blur(80px);
+        opacity: 0.6;
+        animation: float 20s infinite ease-in-out alternate;
+      }
+      .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #6b21a8; animation-delay: 0s; }
+      .blob-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #be185d; animation-delay: -5s; }
+      .blob-3 { top: 40%; left: 60%; width: 40vw; height: 40vw; background: #1e3a8a; animation-delay: -10s; }
+      
+      @keyframes float {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(100px, 50px) scale(1.2); }
+      }
+      
       .container {
+        width: 100%;
         max-width: 800px;
-        margin: auto;
+        margin: 0 auto;
+        padding: 40px 20px;
+        z-index: 10;
       }
+      
+      /* Main App Card */
+      #root > div {
+        background: var(--glass-bg);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: var(--glass-shadow);
+        box-sizing: border-box;
+      }
+      
+      h2 {
+        margin-top: 0;
+        font-weight: 700;
+        font-size: 36px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        margin-bottom: 32px;
+        letter-spacing: -1px;
+      }
+      
+      h3 {
+        font-weight: 500;
+        color: var(--text-main);
+        margin-bottom: 20px;
+        font-size: 18px;
+        margin-top: 0;
+        letter-spacing: 0.5px;
+        display: inline-block;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+        padding-bottom: 4px;
+      }
+      
+      section {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      
+      section:hover {
+        transform: translateY(-2px) scale(1.01);
+        border: 1px solid rgba(255,255,255,0.15);
+      }
+      
+      hr {
+        display: none; /* Removed for cleaner look */
+      }
+      
       textarea {
         width: 100%;
-        height: 80px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px;
+        color: var(--text-main);
+        padding: 16px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        box-sizing: border-box;
+        resize: vertical;
+        transition: all 0.3s ease;
+        margin-top: 8px;
+        margin-bottom: 16px;
       }
+      
+      textarea:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+      
+      textarea:disabled {
+        background-color: rgba(0,0,0,0.4);
+        color: var(--text-muted);
+        cursor: not-allowed;
+      }
+      
       button {
-        margin: 6px 0;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-right: 12px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+      
+      button:hover:not(:disabled) {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Primary Action Buttons */
+      button:last-of-type {
+        background: var(--accent-gradient);
+        border: none;
+        box-shadow: 0 10px 20px rgba(255, 0, 122, 0.3);
+      }
+      button:last-of-type:hover:not(:disabled) {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 15px 25px rgba(122, 0, 255, 0.4);
+      }
+      
+      button:disabled {
+        background: rgba(255,255,255,0.05);
+        color: rgba(255,255,255,0.3);
+        border: 1px solid rgba(255,255,255,0.05);
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+      
+      input[type="file"] {
+        display: block;
+        margin-bottom: 24px;
+        color: var(--text-muted);
+        font-size: 14px;
+      }
+      
+      input[type="file"]::file-selector-button {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        margin-right: 16px;
+        cursor: pointer;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      
+      input[type="file"]::file-selector-button:hover {
+        background: rgba(255,255,255,0.2);
+      }
+      
+      label {
+        font-weight: 600;
+        font-size: 11px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 8px;
+      }
+      
+      audio {
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 30px;
+        outline: none;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+      audio:hover { opacity: 1; }
+      
+      .version-tag {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 32px;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+
+      .loading-indicator {
+        margin-left: 16px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 6px 14px;
+        border-radius: 30px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        animation: pulse 1.5s infinite;
+      }
+      
+      @keyframes pulse {
+        0% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+        70% { opacity: 0.7; box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+        100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,255,255,0); }
       }
     </style>
   </head>
   <body>
+    <div class="bg-mesh">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
     <div id="root" class="container"></div>
     <!-- Cache-busted script tag -->
-    <script type="text/babel" src="/static/app.js?v=1.0.2"></script>
+    <script type="text/babel" src="/static/app.js?v=2.2.0"></script>
   </body>
 </html>

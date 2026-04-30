@@ -102,29 +102,27 @@ function App() {
 
   return (
     <div>
-      <h2>Voice Agent UI {isLoading && <span style={{color: 'orange', fontSize: 'small'}}>(Processing...)</span>}</h2>
+      <h2>Bangla Voice Agent {isLoading && <span className="loading-indicator">Processing Request</span>}</h2>
 
       <section style={{ opacity: isLoading ? 0.6 : 1 }}>
-        <h3>ASR (upload audio)</h3>
+        <h3>Speech Recognition (ASR)</h3>
         <input type="file" ref={fileRef} accept="audio/*" disabled={isLoading} />
         <div>
           <button onClick={uploadASR} disabled={isLoading}>
-            {isLoading ? 'Processing...' : 'Transcribe'}
+            {isLoading ? 'Wait...' : 'Transcribe'}
           </button>
           <button onClick={agentRun} disabled={isLoading}>
-            {isLoading ? 'Processing...' : 'Send to Agent (ASR → Reply)'}
+            {isLoading ? 'Wait...' : 'Send to Agent'}
           </button>
         </div>
         <div>
-          <label>Transcript:</label>
+          <label>Transcript Output</label>
           <textarea value={asrText} readOnly disabled={isLoading} placeholder="Transcription results will appear here..." />
         </div>
       </section>
 
-      <hr />
-
       <section style={{ opacity: isLoading ? 0.6 : 1 }}>
-        <h3>TTS (text → audio)</h3>
+        <h3>Text-to-Speech (TTS)</h3>
         <textarea
           value={ttsText}
           onChange={(e) => setTtsText(e.target.value)}
@@ -133,7 +131,7 @@ function App() {
         />
         <div>
           <button onClick={synthesize} disabled={isLoading}>
-            {isLoading ? 'Synthesizing...' : 'Synthesize'}
+            {isLoading ? 'Wait...' : 'Synthesize Audio'}
           </button>
         </div>
         <audio
@@ -143,8 +141,7 @@ function App() {
         />
       </section>
 
-      {/* Version Tag to ensure refresh */}
-      <div style={{fontSize: '10px', color: '#999', marginTop: '20px'}}>v1.0.2 - Fixed AbortError</div>
+      <div className="version-tag">v2.1.0 - Enterprise Edition</div>
     </div>
   );
 }

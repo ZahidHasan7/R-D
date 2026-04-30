@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "text": "হ্যালো স্যার আমি কীভাবে help করতে পারি?",
+    "latency_s": 6.66,
+    "accuracy": {
+      "reference": "হ্যালো স্যার আমি কীভাবে help করতে পারি?",
+      "hypothesis": "তিযਸতিযা, অ� silence a ring you will be. Help won ¥ �僅়স, মস নതবস�ändig�ুৌ ন� generators, ঵িনതব ু� Ace",
+      "WER": 271.43,
+      "CER": 230.77
+    },
+    "mos": {
+      "MOS_overall": NaN
+    },
+    "mcd_db": 132.566,
+    "prosody": {
+      "f0_correlation": -0.039,
+      "f0_range_tts": 444.15,
+      "f0_range_ref": 199.87
+    }
+  },
+  {
+    "id": 41,
+    "text": "payment হয়ে গেছে কিন্তু order confirm দেখাচ্ছে না",
+    "latency_s": 10.34,
+    "accuracy": {
+      "reference": "payment হয়ে গেছে কিন্তু order confirm দেখাচ্ছে না",
+      "hypothesis": "পরহব়াদা ধা� Ela লধাত পখচী� Aman ponieważ� বিঝাপরীকর...",
+      "WER": 100.0,
+      "CER": 96.0
+    },
+    "mos": {
+      "MOS_overall": NaN
+    },
+    "mcd_db": 99.111,
+    "prosody": {
+      "f0_correlation": 0.064,
+      "f0_range_tts": 150.76,
+      "f0_range_ref": 489.15
+    }
+  },
+  {
+    "id": 51,
+    "text": "এই product টার কি warranty আছে?",
+    "latency_s": 12.79,
+    "accuracy": {
+      "reference": "এই product টার কি warranty আছে?",
+      "hypothesis": "[No Speech Detected]",
+      "WER": 100.0,
+      "CER": 100.0
+    },
+    "mos": {
+      "MOS_overall": NaN
+    },
+    "mcd_db": 117.81,
+    "prosody": {
+      "f0_correlation": 0.312,
+      "f0_range_tts": 185.98,
+      "f0_range_ref": 239.6
+    }
+  }
+]

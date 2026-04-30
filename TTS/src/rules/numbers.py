@@ -6,18 +6,16 @@ BANGLA_DIGITS = {
     '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯'
 }
 
-# Full Bangla ones (0-19)
 _ONES = [
     'শূন্য', 'এক', 'দুই', 'তিন', 'চার', 'পাঁচ', 'ছয়', 'সাত', 'আট', 'নয়',
     'দশ', 'এগারো', 'বারো', 'তেরো', 'চৌদ্দ', 'পনেরো', 'ষোলো', 'সতেরো', 'আঠারো', 'উনিশ',
 ]
 
-# Bangla tens
 _TENS = [
     '', 'দশ', 'বিশ', 'ত্রিশ', 'চল্লিশ', 'পঞ্চাশ', 'ষাট', 'সত্তর', 'আশি', 'নব্বই',
 ]
 
-# Legacy lookup table kept for backward compat with existing normalize_numbers()
+# Cardinal mapping for standard numbers (0-99)
 NUMBER_WORDS = {
     '0': 'শূন্য', '1': 'এক', '2': 'দুই', '3': 'তিন', '4': 'চার',
     '5': 'পাঁচ', '6': 'ছয়', '7': 'সাত', '8': 'আট', '9': 'নয়',
@@ -39,116 +37,132 @@ NUMBER_WORDS = {
     '85': 'পঁচাশী', '86': 'ছিয়াশি', '87': 'সাতাশি', '88': 'আটাশি', '89': 'ঊননব্বই',
     '90': 'নব্বই', '91': 'একানব্বই', '92': 'বিরানব্বই', '93': 'তিরানব্বই', '94': 'চৌরানব্বই',
     '95': 'পঁচানব্বই', '96': 'ছিয়ানব্বই', '97': 'সাতানব্বই', '98': 'আটানব্বই', '99': 'নিরানব্বই',
-    '100': 'একশ', '200': 'দুশো', '300': 'তিনশো', '400': 'চারশো', '500': 'পাঁচশো',
-    '600': 'ছয়শো', '700': 'সাতশো', '800': 'আটশো', '900': 'নয়শো',
-    '1000': 'এক হাজার',
 }
 
-# Digit mapping
-BN_DIGITS = "০১২৩৪৫৬৭৮৯"
-EN_DIGITS = "0123456789"
-BN_TO_EN_MAP = str.maketrans(BN_DIGITS, EN_DIGITS)
+SPECIAL_ORDINALS = {
+    '১ম': 'প্রথম', '২য়': 'দ্বিতীয়', '৩য়': 'তৃতীয়', '৪র্থ': 'চতুর্থ', '৫ম': 'পঞ্চম',
+    '৬ষ্ঠ': 'ষষ্ঠ', '৭ম': 'সপ্তম', '৮ম': 'অষ্টম', '৯ম': 'নবম', '১০ম': 'দশম'
+}
+
+BN_TO_EN_MAP = str.maketrans("০১২৩৪৫৬৭৮৯", "0123456789")
 
 def bangla_to_ascii_digits(text: str) -> str:
-    """Converts Bangla digits (০-৯) to ASCII digits (0-9)."""
     return text.translate(BN_TO_EN_MAP)
 
-
-def normalize_number_to_word(num_str: str) -> str:
-    """
-    Converts a numeral string (integer or decimal) to Bangla words.
-    Handles English digits (0-9) and Bangla digits (০-৯).
-    Supports numbers up to 9,99,99,999 (ten crore).
-
-    Examples:
-        '5'      → 'পাঁচ'
-        '100'    → 'একশ'
-        '1500'   → 'পনেরোশো'
-        '3.5'    → 'তিন দশমিক পাঁচ'
-        '21'     → 'একুশ'
-    """
-    # Normalize Bangla digits to ASCII first, and remove commas
-    bangla_to_ascii = str.maketrans('০১২৩৪৫৬৭৮৯', '0123456789')
-    num_str = num_str.translate(bangla_to_ascii).replace(',', '').strip()
-
-    # Handle decimal
-    if '.' in num_str:
-        parts = num_str.split('.', 1)
-        left_word = normalize_number_to_word(parts[0])
-        # For decimal part, expand digit by digit (e.g., .75 -> সাত পাঁচ)
-        right_digits = parts[1]
-        right_words = [NUMBER_WORDS.get(d, d) for d in right_digits]
-        return f'{left_word} দশমিক {" ".join(right_words)}'
-
-    try:
-        n = int(num_str)
-    except ValueError:
-        return num_str  # return as-is if not parseable
-
-    return _int_to_bangla(n)
-
-
 def _int_to_bangla(n: int) -> str:
-    """Recursive integer-to-Bangla-words converter."""
-    if n < 0:
-        return 'মাইনাস ' + _int_to_bangla(-n)
-    if n < 20:
-        return _ONES[n]
+    if n < 0: return 'মাইনাস ' + _int_to_bangla(-n)
+    if n < 20: return _ONES[n]
     if n < 100:
-        # Priority: use the lookup table for composite numbers (21, 22, etc.)
-        if str(n) in NUMBER_WORDS:
-            return NUMBER_WORDS[str(n)]
-        
-        tens = n // 10
-        ones = n % 10
+        if str(n) in NUMBER_WORDS: return NUMBER_WORDS[str(n)]
+        tens, ones = divmod(n, 10)
         return _TENS[tens] + ('' if ones == 0 else ' ' + _ONES[ones])
     if n < 1000:
-        hundreds = n // 100
-        remainder = n % 100
-        h_word = _ONES[hundreds] + 'শো' if hundreds > 1 else 'একশ'
+        hundreds, remainder = divmod(n, 100)
+        h_word = _ONES[hundreds] + 'শো' if hundreds > 1 else 'একশো'
         return h_word + ('' if remainder == 0 else ' ' + _int_to_bangla(remainder))
-    if n < 100000:  # up to 99,999 (ninetynine thousand)
-        thousands = n // 1000
-        remainder = n % 1000
+    if n < 100000:
+        thousands, remainder = divmod(n, 1000)
         t_word = _int_to_bangla(thousands) + ' হাজার'
         return t_word + ('' if remainder == 0 else ' ' + _int_to_bangla(remainder))
-    if n < 10000000:  # up to 99,99,999 (lakh system)
-        lakhs = n // 100000
-        remainder = n % 100000
+    if n < 10000000:
+        lakhs, remainder = divmod(n, 100000)
         l_word = _int_to_bangla(lakhs) + ' লাখ'
         return l_word + ('' if remainder == 0 else ' ' + _int_to_bangla(remainder))
-    # Crore
-    crores = n // 10000000
-    remainder = n % 10000000
+    crores, remainder = divmod(n, 10000000)
     c_word = _int_to_bangla(crores) + ' কোটি'
     return c_word + ('' if remainder == 0 else ' ' + _int_to_bangla(remainder))
 
-def to_bangla_digits(text):
-    for eng, bg in BANGLA_DIGITS.items():
-        text = text.replace(eng, bg)
-    return text
+def normalize_number_to_word(num_str: str) -> str:
+    clean = bangla_to_ascii_digits(num_str).replace(',', '')
+    if '.' in clean:
+        parts = clean.split('.')
+        whole = _int_to_bangla(int(parts[0]))
+        dec = expand_digit_by_digit(parts[1])
+        return f"{whole} দশমিক {dec}"
+    return _int_to_bangla(int(clean))
 
-def normalize_numbers(text):
-    """
-    Finds all number-like strings (ASCII/Bangla digits, commas, dots) 
-    and converts them to Bangla words.
-    """
-    # Regex to find: 
-    # 1. Decimals/Integers with commas: 12,345.67 or ১২,৩৪৫.৬৭
-    # 2. Simple integers: 100 or ১০০
-    # Updated pattern to better handle dots as decimals
-    pattern = r'[0-9০-৯]+(?:,[0-9০-৯]+)*(?:\.[0-9০-৯]+)?'
+def expand_digit_by_digit(num_str: str) -> str:
+    ascii_str = bangla_to_ascii_digits(num_str)
+    digits = [d for d in ascii_str if d.isdigit()]
+    return ' '.join(_ONES[int(d)] for d in digits)
 
-    def _replace_match(match):
-        num_str = match.group(0)
-        # Ensure we don't normalize just a dot if it somehow got matched
-        if num_str == '.':
-            return '.'
-        return normalize_number_to_word(num_str)
+def expand_year(num_str: str) -> str:
+    ascii_str = bangla_to_ascii_digits(num_str)
+    n = int(ascii_str)
+    if 1000 <= n <= 1999:
+        hundreds, remainder = divmod(n, 100)
+        # Use space between tens and "শো" for clearer model pronunciation
+        # e.g. 1971 → "উনিশ শো একাত্তর" not "উনিশশো একাত্তর"
+        h_part = _ONES[hundreds] + ' শো'
+        r_part = NUMBER_WORDS.get(str(remainder), _int_to_bangla(remainder)) if remainder > 0 else ''
+        return (h_part + ' ' + r_part).strip()
+    return _int_to_bangla(n)
 
-    # Use word boundary lookahead/lookbehind.
-    # We allow Bangla characters to be attached (suffixes like 'টা', 'টি') 
-    # but avoid matching inside English words.
-    safe_pattern = rf'(?<![a-zA-Z]){pattern}(?![a-zA-Z])'
+def normalize_numbers(text: str) -> str:
+    # Pattern includes optional ordinal suffixes
+    num_pattern = r'[0-9০-৯]+(?:[-,.][0-9০-৯]+)*(?:ম|য়|র্থ|ষ্ঠ|তম)?'
     
-    return re.sub(safe_pattern, _replace_match, text)
+    def _replace(match):
+        raw_full = match.group(0)
+        # Find just the number part
+        match_num = re.search(r'[0-9০-৯]+(?:[-,.][0-9০-৯]+)*', raw_full)
+        if not match_num: return raw_full
+        raw = match_num.group(0)
+        suffix_part = raw_full[len(raw):]
+        
+        clean = bangla_to_ascii_digits(raw).replace(',', '')
+        
+        # Context window
+        start = match.start()
+        prefix = text[max(0, start-30):start].lower()
+        suffix_context = text[match.end():match.end()+15]
+        
+        # 1A & 1B: Phone / ID / OTP / Code (Digit by digit)
+        phone_signals = ["ফোন", "মোবাইল", "নম্বর", "নাম্বার", "হেল্পলাইন", "nid", "পাসপোর্ট", "ভোটার আইডি", "আইডি", "otp", "পিন", "pin", "কোড", "id #", "id:", "#"]
+        if any(sig in prefix for sig in phone_signals):
+            return expand_digit_by_digit(raw)
+        
+        if len(clean.replace('-', '').replace('.', '')) >= 10:
+            return expand_digit_by_digit(raw)
+
+        # 1F: Ordinals
+        if suffix_part or any(suffix_context.startswith(s) for s in ["ম", "য়", "র্থ", "ষ্ঠ", "তম"]):
+            s = suffix_part or next((s for s in ["ম", "য়", "র্থ", "ষ্ঠ", "তম"] if suffix_context.startswith(s)), "")
+            if raw + s in SPECIAL_ORDINALS:
+                return SPECIAL_ORDINALS[raw + s]
+            try:
+                return _int_to_bangla(int(clean)) + "তম"
+            except: pass
+
+        # 1E: Years
+        year_signals = ["সালে", "সনে", "সালের", "খ্রিস্টাব্দ", "বঙ্গাব্দ", "ইং"]
+        if any(sig in suffix_context for sig in year_signals):
+            try: return expand_year(clean)
+            except: pass
+            
+        if len(clean) == 4 and '.' not in clean and '-' not in clean:
+            try:
+                n_val = int(clean)
+                if 1000 <= n_val <= 2099:
+                    # Standalone 4-digit numbers in this range are years
+                    first_suffix_char = suffix_context.strip()[:1]
+                    if not first_suffix_char or not first_suffix_char.isalpha() or any(sig.startswith(first_suffix_char) for sig in year_signals):
+                        return expand_year(clean)
+            except: pass
+
+        # 1G: Decimal
+        if '.' in raw:
+            parts = clean.split('.')
+            try:
+                whole = _int_to_bangla(int(parts[0]))
+                dec = expand_digit_by_digit(parts[1])
+                return f"{whole} দশমিক {dec}"
+            except: pass
+
+        # 1H & 1I: Plain Cardinal
+        try:
+            return _int_to_bangla(int(clean))
+        except:
+            return raw_full
+
+    return re.sub(num_pattern, _replace, text)

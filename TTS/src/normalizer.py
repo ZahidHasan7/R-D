@@ -10,6 +10,11 @@ from src.ner_handler import NERHandler
 from src.services.decision_engine import DecisionEngine
 from src.language_detector import LanguageDetector
 
+BANGLA_CONJUNCTIONS = [
+    'এবং', 'কিন্তু', 'তবে', 'যদি', 'কারণ', 'তাই', 'অথবা', 
+    'বরং', 'যদিও', 'তবুও', 'অতএব', 'ফলে', 'তখন'
+]
+
 class TextNormalizer:
     def __init__(self, use_ml=False):
         self.use_ml = use_ml
@@ -18,14 +23,13 @@ class TextNormalizer:
         self.de = DecisionEngine()
         self.ld = LanguageDetector()
         
-        # Order matters for rule-based stage:
+        # Rule set excludes normalize_numbers because we call it explicitly to avoid double expansion
         self.rules = [
             normalize_months,
             normalize_ordinals,
             normalize_currency,
             normalize_time,
-            normalize_numbers,
-            self.ner.handle,  # Handle names/brands from dict
+            self.ner.handle,
         ]
 
     def _normalize_tokens(self, text):
@@ -33,7 +37,6 @@ class TextNormalizer:
         tokens = text.split()
         out_tokens = []
         for i, token in enumerate(tokens):
-            # Strip trailing punctuation but keep dots for abbreviations
             stripped = token.rstrip(',!?।')
             punct = token[len(stripped):]
             next_token = tokens[i+1] if i+1 < len(tokens) else ''
@@ -45,46 +48,67 @@ class TextNormalizer:
         return ' '.join(out_tokens)
 
     def unicode_normalize(self, text):
-        """Normalizes Bangla characters to NFC for consistency."""
         return unicodedata.normalize('NFC', text)
 
+    def normalize_punctuation_for_vits(self, text: str) -> str:
+        replacements = {
+            '।': '.',
+            '॥': '...',
+            '—': ',',
+            '–': ',',
+            '\u200c': '',
+            '\u200d': '',
+            '৷': '.',
+        }
+        for src, tgt in replacements.items():
+            text = text.replace(src, tgt)
+        return text
+
+    def insert_phrase_breaks(self, text: str) -> str:
+        for conj in BANGLA_CONJUNCTIONS:
+            pattern = rf'(?<![,.!?;।]) {conj}'
+            text = re.sub(pattern, f', {conj}', text)
+        return text
+
     def normalize(self, text):
-        """Main normalization method with rule-based and optional ML stages."""
         if not text:
             return ""
 
-        # 1. Unicode Normalization
         text = self.unicode_normalize(text)
-
-        # 2. Hybrid token step (Abbreviations, Units, Mixed)
+        
+        # Abbreviations and Units (Hybrid Step)
         text = self._normalize_tokens(text)
 
-        # 3. Rule-based expansions (Dates, Currency, Numbers)
+        # Rule-based logic
         for rule in self.rules:
             text = rule(text)
-        
-        # 4. Cleanup multi-spaces before ML
-        text = re.sub(r'\s+', ' ', text).strip()
+            
+        # Number expansion (Call once here)
+        text = normalize_numbers(text)
 
-        # 5. Optional: Call ML translator for remaining context
+        # If using ML, run translator then do a FINAL cleanup ONLY if needed
         if self.use_ml:
             text = self.ml_translator.translate(text)
-            
-            # 6. Post-ML Cleanup Pass
-            # ML models (like BanglaT5) often revert expansions (e.g., 'ডাক্তার' -> 'ড.')
-            text = self._normalize_tokens(text)
-            text = normalize_numbers(text)
+            # Cleanup double spaces from ML
             text = re.sub(r'\s+', ' ', text).strip()
+            
+        # Punctuation Normalization
+        text = self.normalize_punctuation_for_vits(text) 
         
+        # Phrase Break Insertion
+        text = self.insert_phrase_breaks(text)
+        
+        # Final Cleanup
+        text = re.sub(r'\s+', ' ', text).strip()
+            
         return text
 
 if __name__ == "__main__":
     normalizer = TextNormalizer()
-    samples = [
-        "5kg চাল",
-        "12 Aug 2024",
-        "Dr. Rahman",
-        "১০:৩০ AM এ google এ meeting করবেন।"
-    ]
-    for sample in samples:
-        print(f"Original: {sample} -> Normalized: {normalizer.normalize(sample)}")
+    samples = {
+        "আমার নম্বর ০১৭১১-২৩৪৫৬৭।": "আমার নম্বর শূন্য এক সাত এক এক দুই তিন চার পাঁচ ছয় সাত.",
+        "আমি ১৯৭১ সালে জন্মগ্রহণ করি।": "আমি উনিশশো একাত্তর সালে জন্মগ্রহণ করি.",
+    }
+    for raw, expected in samples.items():
+        out = normalizer.normalize(raw)
+        print(f"RAW: {raw}\nOUT: {out}\nEXPECTED: {expected}\n---")

@@ -46,8 +46,8 @@ class NERHandler:
             pronunciation = self._db[key]['pronunciation']
         
         if pronunciation and self.literal_mode:
-            # Strip phonetic-only characters for clean text output
-            return pronunciation.replace('-', '').replace('্', '')
+            # Strip phonetic-only characters (like hyphens) for clean text output, but preserve hosonto ('্')
+            return pronunciation.replace('-', '')
         return pronunciation
 
     def handle(self, text: str) -> str:
